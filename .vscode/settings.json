@@ -1,0 +1,15 @@
+{
+    "latex-workshop.docker.enabled": true,
+    "latex-workshop.docker.image.latex": "ghcr.io/xu-cheng/texlive-full",
+    "latex-workshop.docker.path": "../docker_wrapper_tex",
+    "latex-workshop.latex.outDir": "%DIR%out",
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        "./tests",
+        "-p",
+        "test_*.py"
+    ],
+    "python.testing.pytestEnabled": false,
+    "python.testing.unittestEnabled": true
+}
