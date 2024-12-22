@@ -1,0 +1,86 @@
+\begin{lstlisting}[language=python, caption=Code for compare two materials, label={code:compare-materials}]
+from pathlib import Path
+from random import shuffle
+
+import matplotlib.pyplot as plt
+import pandas as pd
+
+csv_root = path_config.lectures / "LectureExercise #1, CSV/csv files"
+
+def filter_path(names: list[str]):
+    path_list = list(csv_root.glob("*.csv"))
+    path_list = [path.stem.replace(".", " ") for path in csv_root.glob("*.csv")]
+
+    for _name in names:
+        name = " " + _name + " "
+        path_list = list(filter(lambda x: name in x, path_list))
+    path_list = [name.replace(" ", "*") + ".csv" for name in path_list]
+    found = []
+    for pathname in path_list:
+        found.extend(list(csv_root.glob(pathname)))
+    return found
+
+def plot_2materials(path1: Path, path2: Path):
+    _fig, ax = plt.subplots()
+
+    name1 = path1.stem.split(".")[0]
+    df1 = pd.read_csv(path1)
+    x = df1["nm"]
+    y = df1[" %R"]
+    ax.plot(x, y, label=name1)
+
+    name2 = path2.stem.split(".")[0]
+    df2 = pd.read_csv(path2)
+    x = df2["nm"]
+    y = df2[" %R"]
+    ax.plot(x, y, label=name2)
+
+    ax.set_title(f"{name1} vs {name2}")
+    ax.set_xlabel("Wavelength [nm]")
+    ax.set_ylabel("Refrectance [0-100]%")
+    ax.set_ylim(0, 100)
+    ax.legend()
+
+def plot_2materials_subtract(path1: Path, path2: Path):
+    _fig, ax = plt.subplots()
+
+    df1 = pd.read_csv(path1)
+    x = df1["nm"]
+    y1 = df1[" %R"]
+
+    df2 = pd.read_csv(path2)
+    y2 = df2[" %R"]
+
+    ax.plot(x, y1 - y2)
+    name1 = path1.stem.split(".")[0]
+    name2 = path2.stem.split(".")[0]
+    ax.set_title(f"{name1} - {name2}")
+    ax.set_xlabel("Wavelength [nm]")
+    ax.set_ylabel("Refrectance [0-100]%")
+
+# compare two materials
+paths1 = filter_path(["green", "paper"])
+shuffle(paths1)
+paths2 = filter_path(["yellow", "paper"])
+shuffle(paths2)
+plot_2materials(paths1[0], paths2[0])
+
+# compare two materials
+paths1 = filter_path(["thin green", "paper"])
+shuffle(paths1)
+paths2 = filter_path(["green", "paper"])
+shuffle(paths2)
+plot_2materials(paths1[0], paths2[0])
+
+# plot subtraction of two materials
+
+paths = filter_path(["plastic", "green"])
+shuffle(paths)
+path1 = paths[0]
+
+paths = filter_path(["paper", "green"])
+shuffle(paths)
+path2 = paths[0]
+plot_2materials_subtract(path1, path2)
+
+\end{lstlisting}
