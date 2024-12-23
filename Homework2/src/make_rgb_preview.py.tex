@@ -1,0 +1,29 @@
+\begin{lstlisting}[language=python, caption=Make RGB preview from given specral image, label={code:rgb-preview}]
+import numpy as np
+
+
+def search_closest_index(wavelengths: list[float], target_wavelength: float) -> int:
+    """Finds the index of the closest wavelength to the target wavelength from value of envi header."""
+    closest_index = int(np.argmin(np.abs(np.array(wavelengths) - target_wavelength)))
+    return closest_index
+
+
+def reconstruct_rgb_envi(
+    spectral_image: np.ndarray,
+    envi_header: dict[str, str],
+    rgb_wavelengths: tuple[float, float, float] = (632.15, 528.03, 443.56),
+):
+    # """Reconstructs RGB image from spectral image with given three wavelengths."""
+    # # Get wavelengths from header
+    wavelengths = [float(data) for data in envi_header["wavelength"].split(",")]
+    rgb_indeces = [search_closest_index(wavelengths, wl) for wl in rgb_wavelengths]
+    lines, samples, _bands = spectral_image.shape
+    rgb_view = np.empty((lines, samples, 3))
+    # Reconstruct RGB image
+    for idx, ch in enumerate(rgb_indeces):
+        rgb_view[:, :, idx] = spectral_image[:, :, ch] / np.amax(
+            spectral_image[:, :, ch]
+        )
+    return rgb_view
+
+\end{lstlisting}

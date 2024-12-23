@@ -1,0 +1,14 @@
+\begin{lstlisting}[language=python, caption=Load spectral image of coin, label={code:save-bip}]
+from pathlib import Path
+
+# load BIL spectral image
+root = Path("Lectures+Exercises/LectureExercise #5, Freelook and bmp/Colorchecker 121 ms (for Freelook demo)/capture/")
+si_path = root / "Colorchecker"
+bil_spectral_image, bil_envi_header = load_spectral_image(si_path)
+
+# reshape BIL to BIP
+bip_spectral_image = bil_spectral_image.transpose(0, 1, 2)
+# save BIP spectral image
+bip_spectral_image.flatten().tofile("colorchecker_bip.raw")
+
+\end{lstlisting}
