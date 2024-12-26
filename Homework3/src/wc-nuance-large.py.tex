@@ -18,11 +18,9 @@ root = nuance / "white 2lights"
 white_image, wavelengths = load_nuance_image(root)
 white_image = white_image.astype(np.float64)
 
-
 fig, axes = plt.subplots(1, 2, figsize=(10, 5))
 
 white_pos = (slice(200, 1000), slice(200, 1200))
-
 
 white_rgb = reconstruct_rgb(white_image, wavelengths)
 white_rgb = select_area(white_rgb, white_pos)
@@ -31,7 +29,6 @@ white_rgb = white_rgb.clip(0, 1)
 axes[0].imshow(white_rgb)
 axes[0].set_title("Before white correction")
 
-
 # White correction with selected area
 white_sq = white_image[white_pos]
 
@@ -39,7 +36,6 @@ white_sq = white_image[white_pos]
 nonzero_elements = white_sq[white_sq != 0]
 min_elm = nonzero_elements.min()
 white_sq = white_sq.clip(min_elm, None)
-
 
 # load spectral image
 root = nuance / "colorchecker 2lights"
@@ -63,7 +59,6 @@ colors = ["g", "r", "b"]
 color_names = ["green", "red", "blue"]
 positions = [(300, 500), (500, 500), (1100, 600)]
 
-
 plt.rcParams["figure.dpi"] = 100
 fig, axes = plt.subplots(2, 4, figsize=(10, 5), tight_layout=True)
 print(axes)
@@ -80,7 +75,6 @@ for pos, color, color_name, ax in zip(positions, colors, color_names, axes1):
     ax.plot(wavelengths, spectral_image[pos[1], pos[0], :], color=color)
     ax.set_title(f"Spectla at {color_name}(original)")
     ax.set_xlabel("Wavelength[nm]")
-
 
 axes1[-1].plot(wavelengths, whiteref, color="k")
 axes1[-1].set_title("White reference")

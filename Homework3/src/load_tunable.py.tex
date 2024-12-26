@@ -8,7 +8,6 @@ import numpy as np
 MAX_PIXEL_VALUE = 255
 MIN_PIXEL_VALUE = 0
 
-
 def parse_png_path(path: Path) -> tuple[str, int, float]:
     # parse path of tunable files
     path_parts = path.stem.split(",")
@@ -19,16 +18,13 @@ def parse_png_path(path: Path) -> tuple[str, int, float]:
     exp_id = float(exp_info.strip().split(" ")[1])
     return name, ch_id, exp_id
 
-
 def gen_template(name: str, ch: int) -> str:
     return f"{name}, ch {ch}, exp * ms.png"
-
 
 def get_score(im: np.ndarray) -> int:
     nb_max = (im == MAX_PIXEL_VALUE).sum()
     nb_min = (im == MIN_PIXEL_VALUE).sum()
     return nb_max + nb_min
-
 
 def load_tunable_image(
     tunable_root: Path, name: str, white_pos: tuple[slice, slice]

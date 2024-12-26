@@ -5,7 +5,6 @@ import numpy as np
 import tifffile as tiff
 from natsort import natsorted
 
-
 def load_nuance_image(tiff_root: Path) -> tuple[np.ndarray, list[float]]:
     wavelengths: list[float] = []
     imgs = []

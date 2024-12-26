@@ -17,13 +17,11 @@ spectral_image, channels = load_tunable_image(
 )
 spectral_image = spectral_image.astype(np.float64)
 
-
 lines, samples, bands = spectral_image.shape
 spectral_image_uint16 = (spectral_image).astype(np.uint16)
 bil_format = spectral_image_uint16.transpose(0, 2, 1).flatten()
 
 bil_format.tofile("saveddata/tunable.raw")
-
 
 header_content = f"""ENVI
 ENVI description = {{File Imported into ENVI}}
