@@ -1,0 +1,53 @@
+\begin{lstlisting}[language=python, caption=White correction for Specium Scanner, label={code:wc-specim-scanner}]
+import matplotlib.pyplot as plt
+
+from asi import path_config
+from asi.draw import draw_multi_crosss, reconstruct_rgb_envi
+from asi.io.load_envi import load_spectral_image
+from asi.preprocess import load_white_corrected
+from asi.utils import get_wavelengths
+
+session1_root = path_config.measurements / "Session1"
+spec_path = session1_root / "Specim scanner/Color_checker_8_binning/capture"
+
+fig, axes = plt.subplots(1, 2, figsize=(10, 5))
+
+colorchecker_path = spec_path / "solutions_scan_0110"
+whiteref_path = spec_path / "WHITEREF_solutions_scan_0110"
+darkref_path = spec_path / "DARKREF_solutions_scan_0110"
+
+spectral_image, envi_header = load_spectral_image(colorchecker_path)
+rgb_view = reconstruct_rgb_envi(spectral_image, envi_header)
+axes[0].imshow(rgb_view)
+axes[0].set_title("Before white correction")
+
+spectral_image, envi_header = load_white_corrected(
+    colorchecker_path,
+    whiteref_path,
+    darkref_path,
+)
+rgb_view = reconstruct_rgb_envi(spectral_image, envi_header)
+
+axes[1].imshow(rgb_view)
+axes[1].set_title("After white correction")
+plt.show()
+
+# Show spectra
+colors = ["r", "g"]
+positions = [(300, 500), (400, 1000)]
+canvas = draw_multi_crosss(rgb_view, positions)
+
+plt.rcParams["figure.dpi"] = 100
+fig, axes = plt.subplots(1, 3, figsize=(10, 5), tight_layout=True)
+
+wavelength = get_wavelengths(envi_header)
+for pos, color, ax in zip(positions, colors, axes[:2]):
+    ax.plot(wavelength, spectral_image[pos[1], pos[0], :], color=color)
+    ax.set_title(f"Spectrum at {pos[0]}th pixel")
+    ax.set_xlabel("Wavelength[nm]")
+
+axes[2].imshow(canvas)
+axes[2].set_title("RGB view of spectral image")
+
+plt.show()
+\end{lstlisting}

@@ -1,0 +1,124 @@
+\begin{lstlisting}[language=python, caption=Load ENVI format images, label={code:load-envi}]
+from pathlib import Path
+
+import numpy as np
+
+
+def parse_envi_header(lines: list) -> dict[str, str]:
+    """
+    Parses ENVI file content into a structured dictionary
+    This code was written with Github Copilot
+    """
+    envi_data = {}
+    in_block_key = None
+
+    for line_org in lines:
+        line = line_org.strip()
+
+        # Skip empty lines
+        if not line:
+            continue
+
+        # Handle multiline blocks
+        if in_block_key:
+            if line.endswith("}"):
+                # Closing multiline
+                envi_data[in_block_key] += line[:-1].strip()
+                in_block_key = None
+            else:
+                # Continue multiline
+                envi_data[in_block_key] += line
+            continue
+
+        # Key-value pair parsing
+        if "=" in line:
+            key, value = map(str.strip, line.split("=", 1))
+            key = key.lower().replace(" ", "_")  # Normalize key format
+
+            # Handle block values
+            if value.startswith("{"):
+                # Handle multiline block
+                in_block_key = key
+                # Remove opening '{'
+                value = value[1:].strip()
+                if value.endswith("}"):
+                    # Single-line block
+                    envi_data[key] = value[:-1]
+                    in_block_key = None
+                else:
+                    # Start multiline block
+                    envi_data[key] = value
+            else:
+                # Single-line value
+                envi_data[key] = value
+    return envi_data
+
+
+def load_envi_header(hdr_file: Path) -> dict[str, str]:
+    """Loads ENVI header file."""
+    with hdr_file.open(encoding="utf-8") as f:
+        header_content = f.readlines()
+    envi_header = parse_envi_header(header_content)
+    return envi_header
+
+
+def load_spectral_image(file_stem: Path) -> tuple[np.ndarray, dict[str, str]]:
+    """Loads spectral image from ENVI format."""
+    # Load ENVI header
+    hdr_file = file_stem.with_suffix(".hdr")
+    envi_header = load_envi_header(hdr_file)
+
+    # Load parameters
+    interleave = str(envi_header["interleave"])
+    lines = int(envi_header["lines"])
+    samples = int(envi_header["samples"])
+    bands = int(envi_header["bands"])
+    data_type = int(envi_header.get("data type", 12))
+
+    # Map ENVI data type to NumPy dtype
+    data_type_map = {
+        1: np.uint8,
+        2: np.int16,
+        3: np.int32,
+        4: np.float32,
+        5: np.float64,
+        6: np.complex64,
+        9: np.complex128,
+        12: np.uint16,
+        13: np.uint32,
+        14: np.int64,
+        15: np.uint64,
+    }
+
+    if data_type not in data_type_map:
+        msg = f"Unsupported data type: {data_type}"
+        raise ValueError(msg)
+
+    dtype = data_type_map[data_type]
+
+    # Load raw data
+    raw_file = file_stem.with_suffix(".raw")
+    with open(raw_file, "rb") as f:
+        raw = np.fromfile(f, dtype=dtype)
+
+    # define shape and transpose order by interleave method
+    if interleave.upper() == "BIL":
+        new_shape = (lines, bands, samples)
+        axis_order = (0, 2, 1)
+    elif interleave.upper() == "BIP":
+        new_shape = (lines, samples, bands)
+        axis_order = (0, 1, 2)
+    elif interleave.upper() == "BSQ":
+        new_shape = (bands, samples, lines)
+        axis_order = (0, 2, 1)
+    else:
+        msg = f"Interleave {interleave} not supported."
+        raise ValueError(msg)
+
+    spectral_image = raw.reshape(new_shape)
+    # change axis order to 'lines, samples, bands'
+    spectral_image = np.transpose(spectral_image, axis_order)
+
+    return spectral_image, envi_header
+
+\end{lstlisting}
