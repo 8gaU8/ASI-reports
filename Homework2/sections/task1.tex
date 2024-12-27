@@ -2,7 +2,10 @@
 
 \subsubsection{Preview}
 
-A spectral image by SpecimIQ was loaded by the Python script shown in Code \ref{code:load-envi} and converted to RGB preview by Code \ref{code:rgb-preview}. The gray scale preview and RGB preview are shown in Figure \ref{fig:specim-preview}.
+A spectral image by SpecimIQ was loaded by the Python script shown in
+Code \ref{code:load-envi} and converted to RGB preview by Code
+\ref{code:rgb-preview}. The gray scale preview and RGB preview are
+shown in Figure \ref{fig:specim-preview}.
 
 Gray preview of the image was created by the following code:
 
@@ -21,7 +24,9 @@ rgb_view = reconstruct_rgb_envi(spectral_image, envi_header)
 plt.imshow(rgb_view)
 \end{lstlisting}
 
-Functions used in Code \ref{code:show-gray-preview} and Code \ref{code:show-rgb-preview} are defined in Code \ref{code:load-envi} and Code \ref{code:rgb-preview}.
+Functions used in Code \ref{code:show-gray-preview} and Code
+\ref{code:show-rgb-preview} are defined in Code \ref{code:load-envi}
+and Code \ref{code:rgb-preview}.
 
 \begin{figure}[H] %
   \centering
@@ -47,9 +52,13 @@ Functions used in Code \ref{code:show-gray-preview} and Code \ref{code:show-rgb-
 
 \subsection{Spectral Scanner}
 
-Spectral image by Spectral Scanner was also processed by    the same Python script. The gray scale preview and RGB preview are shown in Figure \ref{fig:spectral-preview}.
+Spectral image by Spectral Scanner was also processed by    the same
+Python script. The gray scale preview and RGB preview are shown in
+Figure \ref{fig:spectral-preview}.
 
-The same codes, with diffrent path in Code \ref{code:show-gray-preview} and Code \ref{code:show-rgb-preview} were used to create the previews.
+The same codes, with diffrent path in Code
+\ref{code:show-gray-preview} and Code \ref{code:show-rgb-preview}
+were used to create the previews.
 
 \subsubsection{Preview}
 

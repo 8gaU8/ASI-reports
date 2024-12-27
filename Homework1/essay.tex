@@ -3,7 +3,9 @@
 \subsection{Colorchecker 121 ms}
 
 \subsubsection{Gray scale preview}
-Wavelength 429 nm was selected for the gray scale preview. The preview of the colorchecker and the spectra are shown in Figure \ref{fig:cc-gray}.
+Wavelength 429 nm was selected for the gray scale preview. The
+preview of the colorchecker and the spectra are shown in Figure
+\ref{fig:cc-gray}.
 
 \begin{figure}[H] %
   \centering
@@ -23,7 +25,10 @@ Wavelength 429 nm was selected for the gray scale preview. The preview of the co
 \end{figure}
 
 \subsubsection{RGB preview}
-Wavelengths 429 nm, 533 nm, and 631 nm were selected for the RGB preview. The preview of the colorchecker and the spectra are shown in Figure \ref{fig:cc-rgb}. White correction was not applied to the spectra. Thus, the color of these images is "natural".
+Wavelengths 429 nm, 533 nm, and 631 nm were selected for the RGB
+preview. The preview of the colorchecker and the spectra are shown in
+Figure \ref{fig:cc-rgb}. White correction was not applied to the
+spectra. Thus, the color of these images is "natural".
 
 \begin{figure}[H] %
   \centering
@@ -44,12 +49,15 @@ Wavelengths 429 nm, 533 nm, and 631 nm were selected for the RGB preview. The pr
 
 \subsection{Leaves (Specim IQ)}
 
-The spectral images of live and plastic leaves are shown in Figure \ref{fig:leaves}.
+The spectral images of live and plastic leaves are shown in Figure
+\ref{fig:leaves}.
 
 Wavelength 750 nm was selected for the gray scale preview.
 Wavelengths 429 nm, 533 nm, and 750 nm were selected for the RGB preview.
 
-At 750 nm, plastic leaves and live leaves have different reflectance. The plastic leaves have higher reflectance than the live leaves. This is because the plastic leaves are more reflective in the near-infrared region.
+At 750 nm, plastic leaves and live leaves have different reflectance.
+The plastic leaves have higher reflectance than the live leaves. This
+is because the plastic leaves are more reflective in the near-infrared region.
 
 \begin{figure}[H] %
   \centering
@@ -67,10 +75,16 @@ At 750 nm, plastic leaves and live leaves have different reflectance. The plasti
 
 \subsection{Infrared (by sarita.keski-saari@uef.fi)}
 
-The figure \ref{fig:painting} shows an RGB preview of a painting. This image was captured with infrared wavelength range. Three wavelength, 2399 nm, 1496 nm, and 1275 nm were selected to construct the RGB preview. This is why the preview does not look "natural".
+The figure \ref{fig:painting} shows an RGB preview of a painting.
+This image was captured with infrared wavelength range. Three
+wavelength, 2399 nm, 1496 nm, and 1275 nm were selected to construct
+the RGB preview. This is why the preview does not look "natural".
 
-The original RGB picuture of this painting is shown in Figure \ref{fig:painting-org}.
-In Figure \ref{fig:painting}, some obstacles like stamp of coffee cup are visible. Using infrared spectral image, we can observe hidden features, not only paintings in visible range.
+The original RGB picuture of this painting is shown in Figure
+\ref{fig:painting-org}.
+In Figure \ref{fig:painting}, some obstacles like stamp of coffee cup
+are visible. Using infrared spectral image, we can observe hidden
+features, not only paintings in visible range.
 
 \begin{figure}[H]
   \centering
@@ -88,9 +102,14 @@ In Figure \ref{fig:painting}, some obstacles like stamp of coffee cup are visibl
 
 \subsection{124 (rock painting)}
 
-The rock painting has inked areas and other areas. The spectra of inked areas and other areas are shown in Figure \ref{fig:rock-painting}.
+The rock painting has inked areas and other areas. The spectra of
+inked areas and other areas are shown in Figure \ref{fig:rock-painting}.
 
-Right-side of Figure \ref{fig:rock-painting-ink1} and Figure \ref{fig:rock-painting-ink2} shows the spectra of inked areas. These two spectras have similar distribution compared to the spectra of rock surface shown in Figure \ref{fig:rock-painting-other}. Thus, we can say that painted areas have same ink.
+Right-side of Figure \ref{fig:rock-painting-ink1} and Figure
+\ref{fig:rock-painting-ink2} shows the spectra of inked areas. These
+two spectras have similar distribution compared to the spectra of
+rock surface shown in Figure \ref{fig:rock-painting-other}. Thus, we
+can say that painted areas have same ink.
 
 \begin{figure}[H]
   \centering
@@ -116,7 +135,14 @@ Right-side of Figure \ref{fig:rock-painting-ink1} and Figure \ref{fig:rock-paint
 
 \subsection{Comparison of two materials}
 
-In Figure \ref{fig:2mat}, the spectras of two materials are compared. The first comparison is between green paper and yellow paper (Figure \ref{fig:g-vs-y}). The second comparison is between thin green paper and green paper (Figure \ref{fig:g-vs-tg}). The green paper has higher reflectance than the yellow paper in infrared range and has a peak around 500 nm. The thin green paper has lower reflectance than the green paper. The thin green paper has a similar reflectance distribution to the green paper, but the reflectance is lower.
+In Figure \ref{fig:2mat}, the spectras of two materials are compared.
+The first comparison is between green paper and yellow paper (Figure
+\ref{fig:g-vs-y}). The second comparison is between thin green paper
+and green paper (Figure \ref{fig:g-vs-tg}). The green paper has
+higher reflectance than the yellow paper in infrared range and has a
+peak around 500 nm. The thin green paper has lower reflectance than
+the green paper. The thin green paper has a similar reflectance
+distribution to the green paper, but the reflectance is lower.
 
 These figures are generated by the code shown in Code \ref{code:comparison}.
 
@@ -136,7 +162,13 @@ These figures are generated by the code shown in Code \ref{code:comparison}.
 \end{figure}
 
 \subsection{Diffrence of spectra of two materials}
-Figure \ref{fig:diff2mat} shows the difference of two materials. This plot was created by the code shown in Code \ref{code:compare-materials}. The difference between a green plastic spoon and a green paper is shown in the figure. The green plastic spoon has higher reflectance than the green paper in the visible range. The green paper has higher reflectance than the green plastic spoon in the infrared range.
+Figure \ref{fig:diff2mat} shows the difference of two materials. This
+plot was created by the code shown in Code
+\ref{code:compare-materials}. The difference between a green plastic
+spoon and a green paper is shown in the figure. The green plastic
+spoon has higher reflectance than the green paper in the visible
+range. The green paper has higher reflectance than the green plastic
+spoon in the infrared range.
 
 \begin{figure}[H]
   \centering
@@ -146,9 +178,16 @@ Figure \ref{fig:diff2mat} shows the difference of two materials. This plot was c
 \end{figure}
 
 \subsection{Clustering of all materials by Ward's method}
-Figure \ref{fig:clustering} shows the clustering of all materials by Ward's method. The clustering was done in the visible and infrared wavelength range. The clustering was done by the code shown in Code \ref{code:cluster-materials}.
+Figure \ref{fig:clustering} shows the clustering of all materials by
+Ward's method. The clustering was done in the visible and infrared
+wavelength range. The clustering was done by the code shown in Code
+\ref{code:cluster-materials}.
 
-In visible range, green paper and green plastic spoon are clustered together. In infrared range, green paper and green plastic spoon are not in the same cluster. This is because the green paper and green plastic spoon have different reflectance in the infrared range as shown in Figure \ref{fig:diff2mat}.
+In visible range, green paper and green plastic spoon are clustered
+together. In infrared range, green paper and green plastic spoon are
+not in the same cluster. This is because the green paper and green
+plastic spoon have different reflectance in the infrared range as
+shown in Figure \ref{fig:diff2mat}.
 
 \begin{figure}[H] %
   \centering
@@ -162,7 +201,8 @@ In visible range, green paper and green plastic spoon are clustered together. In
   \subfloat[Visible range]{%
     \includegraphics[width=0.65\textwidth]{figs-task2/cluster-visible.png}
   }
-  \caption[]{Clustering of all materials in visible and infrared wavelength range}
+  \caption[]{Clustering of all materials in visible and infrared
+  wavelength range}
   \label{fig:clustering}
 \end{figure}
 

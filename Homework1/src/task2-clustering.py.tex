@@ -9,7 +9,6 @@ from asi.utils import search_closest_index
 
 csv_root = path_config.lectures / "LectureExercise #1, CSV/csv files"
 
-
 labels = []
 arrays = []
 _df = pd.read_csv(next(csv_root.glob("*.csv")))
@@ -22,14 +21,11 @@ for path in list(csv_root.glob("*.csv")):
     arrays.append(df[" %R"].to_numpy())
 all_spectra = np.array(arrays).T
 
-
 visible_max = 760
 wavelengths = _df["nm"].to_list()
 visible_max_index = search_closest_index(wavelengths, visible_max)
 
-
 # Cluster with visible wavelengths
-
 
 visible_range = slice(visible_max_index, None)
 
@@ -46,7 +42,6 @@ ax.set_ylabel("Normalized reflectance")
 ax.set_xlabel("Wavelength [nm]")
 plt.show()
 
-
 Z = linkage(visible_spectra.T, "ward")
 fig, ax = plt.subplots()
 ax.set_title("Hierarchical Clustering Dendrogram[visible range]")
@@ -59,9 +54,7 @@ ax.set_ylabel("distance (Ward)")
 _ = dendrogram(Z, labels=labels, leaf_rotation=90, ax=ax)
 plt.show()
 
-
 # Cluster with IR wavelengths
-
 
 ir_range = slice(0, visible_max)
 ir_wl = wavelengths[ir_range]
@@ -82,7 +75,6 @@ ax.set_title("Normalized spectra of IR range")
 ax.set_ylabel("Normalized reflectance")
 ax.set_xlabel("Wavelength [nm]")
 plt.show()
-
 
 Z = linkage(ir_spectra.T, "ward")
 fig, ax = plt.subplots(tight_layout=True, figsize=(10, 8))

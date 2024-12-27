@@ -28,7 +28,6 @@ bands = int(bands)
 raw_image = raw_array.reshape((bands, samples, lines))
 raw_image = np.transpose(raw_image, (1, 2, 0))
 
-
 fig, axes = plt.subplots(1, 3, tight_layout=True, figsize=(15, 10))
 axes[0].imshow(raw_image[:, :, 4], cmap="gray")
 axes[0].set_title("Preview of spectral image at 4th band")
